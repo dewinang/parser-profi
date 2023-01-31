@@ -1,0 +1,80 @@
+<?php
+ini_set('max_execution_time', 600);
+function curl_get($host, $referer = null){
+    $ch = curl_init();
+ 
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_REFERER, $referer);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.9.168 Version/11.51");
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+    curl_setopt($ch, CURLOPT_URL, $host);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $html = curl_exec($ch);
+    echo curl_error($ch);
+    curl_close($ch);
+    return $html;
+};
+
+$urls = [
+    "https://bindas.com.ua/ua/site_search?search_term=576703",
+    "https://bindas.com.ua/ua/site_search?search_term=577010",
+    "https://bindas.com.ua/ua/site_search?search_term=577417",
+    "https://bindas.com.ua/ua/site_search?search_term=576110",
+    "https://bindas.com.ua/ua/site_search?search_term=576115",
+    "https://bindas.com.ua/ua/site_search?search_term=561683",
+    "https://bindas.com.ua/ua/site_search?search_term=561728",
+    "https://bindas.com.ua/ua/site_search?search_term=575302",
+    "https://bindas.com.ua/ua/site_search?search_term=575313",
+    "https://bindas.com.ua/ua/site_search?search_term=575443",
+    "https://bindas.com.ua/ua/site_search?search_term=574945",
+    "https://bindas.com.ua/ua/site_search?search_term=574958",
+    "https://bindas.com.ua/ua/site_search?search_term=574960",
+    "https://bindas.com.ua/ua/site_search?search_term=576413",
+    "https://bindas.com.ua/ua/site_search?search_term=576420",
+    "https://bindas.com.ua/ua/site_search?search_term=576426",
+    "https://bindas.com.ua/ua/site_search?search_term=576925",
+    "https://bindas.com.ua/ua/site_search?search_term=576919",
+    "https://bindas.com.ua/ua/site_search?search_term=576207",
+    "https://bindas.com.ua/ua/site_search?search_term=576540",
+    "https://bindas.com.ua/ua/site_search?search_term=576215",
+    "https://bindas.com.ua/ua/site_search?search_term=575447",
+    "https://bindas.com.ua/ua/site_search?search_term=575989",
+    "https://bindas.com.ua/ua/site_search?search_term=576696",
+    "https://bindas.com.ua/ua/site_search?search_term=576329",
+    "https://bindas.com.ua/ua/site_search?search_term=575043",
+    "https://bindas.com.ua/ua/site_search?search_term=575057",
+    "https://bindas.com.ua/ua/site_search?search_term=576080",
+    "https://bindas.com.ua/ua/site_search?search_term=576320",
+    "https://bindas.com.ua/ua/site_search?search_term=575032",
+    "https://bindas.com.ua/ua/site_search?search_term=576072",
+    "https://bindas.com.ua/ua/site_search?search_term=575023",
+    "https://bindas.com.ua/ua/site_search?search_term=575066",
+    "https://bindas.com.ua/ua/site_search?search_term=576017",
+    "https://bindas.com.ua/ua/site_search?search_term=576175",
+    "https://bindas.com.ua/ua/site_search?search_term=576186",
+    "https://bindas.com.ua/ua/site_search?search_term=576047",
+    "https://bindas.com.ua/ua/site_search?search_term=576041",
+    "https://bindas.com.ua/ua/site_search?search_term=576481",
+    "https://bindas.com.ua/ua/site_search?search_term=575601",
+    "https://bindas.com.ua/ua/site_search?search_term=576093",
+    "https://bindas.com.ua/ua/site_search?search_term=576102",
+    "https://bindas.com.ua/ua/site_search?search_term=576448",
+    "https://bindas.com.ua/ua/site_search?search_term=574908",
+    "https://bindas.com.ua/ua/site_search?search_term=576511"
+];
+
+
+
+
+$result = curl_get($urls[0]);
+$res1 = stristr($result, 'cs-goods-price__value cs-goods-price__value_type_current cs-goods-price__value_type_product-list">');
+$res2 = stristr($res1, '<span class="notranslate">грн</span>', true);
+$delit = 'cs-goods-price__value cs-goods-price__value_type_current cs-goods-price__value_type_product-list">';
+$res3 = str_replace($delit, '', $res2);
+
+echo $res3;
+
+
+?>  
